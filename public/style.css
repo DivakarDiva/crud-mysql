@@ -1,0 +1,93 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    color: #333;
+    padding: 40px 20px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #222;
+}
+
+#name{
+    margin-left: 260px;
+}
+
+input {
+    padding: 12px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+}
+
+
+input:focus {
+    border-color: #333;
+}
+
+/* Add button */
+
+button {
+    padding: 11px 18px;
+    margin: 5px;
+    border: none;
+    border-radius: 6px;
+    background: #222;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button:hover {
+    background: #444;
+}
+
+
+#users {
+    max-width: 800px;
+    margin: 30px auto;
+}
+
+
+#users p {
+    background: rgb(201, 198, 198);
+    padding: 18px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+
+#users p button:first-of-type {
+    margin-left: auto;
+    background: #2563eb;
+}
+
+#users p button:first-of-type:hover {
+    background: #1d4ed8;
+}
+
+
+#users p button:last-of-type {
+    background: #dc2626;
+}
+
+#users p button:last-of-type:hover {
+    background: #b91c1c;
+}
+

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MySQL CRUD</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <h1>MySQL CRUD</h1>
+    <input id="name" placeholder="Name">
+    <input id="email" placeholder="Email">
+    <input id="age" placeholder="Age" type="number">
+    <button id="addBtn" onclick="addUser()">Add User</button>
+
+    <div id="users"></div>
+
+    
+
+    <script>
+        let editId = null;
+        
+        async function addUser() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const age = document.getElementById("age").value;
+            if (editId === null) {
+                // CREATE
+                await fetch("/api/users", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        age
+                    })
+                });
+            } else {
+                await fetch(`/api/users/${editId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name,
+                        email,
+                        age
+                    })
+                });
+                editId = null;
+                document.getElementById("addBtn").innerText = "Add User";
+            }
+            document.getElementById("name").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("age").value = "";
+
+            loadUsers();
+        }
+
+        
+        function editUser(id, name, email, age) {
+            editId = id;
+            document.getElementById("name").value = name;
+            document.getElementById("email").value = email;
+            document.getElementById("age").value = age;
+
+            document.getElementById("addBtn").innerText = "Update User";
+        }
+
+
+        async function deleteUser(id) {
+            await fetch(`/api/users/${id}`, {
+                method: "DELETE"
+            });
+            loadUsers();
+        }
+        loadUsers();
+
+
+        // READ
+        async function loadUsers() {
+            const response = await fetch("/api/users");
+            const users = await response.json();
+            document.getElementById("users").innerHTML = "";
+            users.forEach(user => {
+                document.getElementById("users").innerHTML += `
+                    <p>
+                        ${user.id})
+                        ${user.name} -
+                        ${user.email} -
+                        ${user.age}
+
+                        <button onclick="editUser(
+                            ${user.id},
+                            '${user.name}',
+                            '${user.email}',
+                            ${user.age}
+                        )">     Edit    </button>
+
+
+                        <button onclick="deleteUser(${user.id})">
+                            Delete
+                        </button>
+                    </p>
+
+                `;
+            });
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
